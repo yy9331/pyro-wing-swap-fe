@@ -1,0 +1,770 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light theme - orange primary */
+  --background: 0 0% 100%;
+  --foreground: 24 90% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 24 90% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 24 90% 10%;
+  --primary: 28 92% 52%; /* orange */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 28 100% 96%;
+  --secondary-foreground: 24 90% 10%;
+  --muted: 28 100% 96%;
+  --muted-foreground: 24 30% 40%;
+  --accent: 28 100% 96%;
+  --accent-foreground: 24 90% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 28 30% 90%;
+  --input: 28 30% 90%;
+  --ring: 28 92% 52%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Dark theme - orange primary */
+  --background: 24 20% 7%;
+  --foreground: 0 0% 100%;
+  --card: 24 20% 9%;
+  --card-foreground: 0 0% 100%;
+  --popover: 24 20% 9%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 28 92% 52%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 24 18% 15%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 24 18% 15%;
+  --muted-foreground: 28 30% 80%;
+  --accent: 24 18% 15%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 24 18% 15%;
+  --input: 24 18% 15%;
+  --ring: 28 92% 52%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-size: 16px; /* 增加基础字体大小 */
+  line-height: 1.6; /* 增加行高 */
+}
+
+/* 增加各种文本元素的字体大小 */
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.25em; /* 标题字体相对增大 */
+}
+
+p, span, div {
+  font-size: 1.05em; /* 正文字体相对增大 */
+}
+
+/* 按钮文字增大 */
+button {
+  font-size: 1.1em;
+}
+
+/* 输入框文字增大 */
+input, textarea, select {
+  font-size: 1.1em;
+}
+
+/* 链接文字增大 */
+a {
+  font-size: 1.05em;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+/* 增强的动画背景样式 */
+.animated-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(251, 146, 60, 0.15) 50%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+.animated-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 20% 80%,
+    rgba(251, 146, 60, 0.2) 0%,
+    transparent 50%
+  );
+  animation: pulse 6s ease-in-out infinite;
+}
+
+/* 深色主题增强动画背景 */
+.dark .animated-bg::before {
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(251, 146, 60, 0.12) 50%,
+    transparent 70%
+  );
+}
+
+.dark .animated-bg::after {
+  background: radial-gradient(
+    circle at 80% 20%,
+    rgba(251, 146, 60, 0.15) 0%,
+    transparent 50%
+  );
+}
+
+/* 新增：动态光晕效果 */
+.animated-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(251, 146, 60, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(251, 146, 60, 0.06) 0%, transparent 50%);
+  animation: 
+    shimmer 8s ease-in-out infinite,
+    pulse 6s ease-in-out infinite,
+    glow 10s ease-in-out infinite;
+}
+
+.dark .animated-bg::before {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(251, 146, 60, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(251, 146, 60, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(251, 146, 60, 0.06) 0%, transparent 50%);
+}
+
+/* 浮动粒子效果 - 增强版 */
+.floating-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(251, 146, 60, 0.4);
+  border-radius: 50%;
+  animation: float 20s infinite linear;
+  box-shadow: 0 0 10px rgba(251, 146, 60, 0.3);
+}
+
+.dark .particle {
+  background: rgba(251, 146, 60, 0.15);
+  box-shadow: 0 0 15px rgba(251, 146, 60, 0.2);
+}
+
+/* 新增：脉冲粒子 */
+.pulse-particle {
+  position: absolute;
+  background: rgba(251, 146, 60, 0.2);
+  border-radius: 50%;
+  animation: pulse-float 15s infinite ease-in-out;
+}
+
+.dark .pulse-particle {
+  background: rgba(251, 146, 60, 0.1);
+}
+
+/* 动画关键帧 - 增强版 */
+@keyframes shimmer {
+  0%, 100% {
+    background-position: -200% -200%;
+    opacity: 0.8;
+  }
+  50% {
+    background-position: 200% 200%;
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    filter: brightness(1) blur(0px);
+  }
+  50% {
+    filter: brightness(1.2) blur(1px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) rotate(36deg) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) rotate(324deg) scale(1);
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-float {
+  0%, 100% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(80vh) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(20vh) scale(1.2);
+  }
+  100% {
+    transform: translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* 增强的网格背景效果 */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(251, 146, 60, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 146, 60, 0.15) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-move 20s linear infinite;
+}
+
+.dark .grid-bg {
+  background-image: 
+    linear-gradient(rgba(251, 146, 60, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 146, 60, 0.08) 1px, transparent 1px);
+}
+
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+/* 增强的卡片动画效果 */
+.animated-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.animated-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(251, 146, 60, 0.15),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: -1;
+}
+
+.animated-card:hover::before {
+  left: 100%;
+}
+
+.animated-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(251, 146, 60, 0.2),
+    0 0 0 1px rgba(251, 146, 60, 0.1);
+}
+
+.dark .animated-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(251, 146, 60, 0.15),
+    0 0 0 1px rgba(251, 146, 60, 0.1);
+}
+
+/* 新增：卡片边框发光效果 */
+.animated-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(45deg, transparent, rgba(251, 146, 60, 0.3), transparent);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.animated-card:hover::after {
+  opacity: 1;
+}
+
+/* 增强的按钮动画效果 */
+.animated-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.animated-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  z-index: -1;
+}
+
+.animated-button:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.animated-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 10px 25px rgba(251, 146, 60, 0.3),
+    0 0 0 1px rgba(251, 146, 60, 0.2);
+}
+
+/* 新增：按钮点击波纹效果 */
+.animated-button:active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+  z-index: -1;
+}
+
+@keyframes ripple {
+  to {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+/* 增强的输入框动画效果 */
+.animated-input {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.animated-input:focus-within {
+  transform: scale(1.02);
+  box-shadow: 
+    0 0 0 3px rgba(251, 146, 60, 0.2),
+    0 10px 25px rgba(251, 146, 60, 0.1);
+}
+
+/* 增强的标签页动画效果 */
+.animated-tab {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(251, 146, 60, 0.1), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.animated-tab:hover::before {
+  left: 100%;
+}
+
+.animated-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f97316, #f59e0b, #eab308);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(251, 146, 60, 0.5);
+  z-index: -1;
+}
+
+.animated-tab[data-state="active"]::after {
+  width: 100%;
+}
+
+.animated-tab[data-state="active"] {
+  background: rgba(251, 146, 60, 0.1);
+  box-shadow: 0 0 20px rgba(251, 146, 60, 0.2);
+}
+
+/* 增强的加载动画 */
+.loading-dots {
+  display: inline-block;
+  position: relative;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% {
+    content: '';
+  }
+  40% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80%, 100% {
+    content: '...';
+  }
+}
+
+/* 新增：脉冲加载动画 */
+.pulse-loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(251, 146, 60, 0.3);
+  border-radius: 50%;
+  border-top-color: #f97316;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 增强的渐变文字效果 */
+.gradient-text {
+  background: linear-gradient(45deg, #f97316, #f59e0b, #eab308, #f97316);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease-in-out infinite;
+  position: relative;
+}
+
+.gradient-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(45deg, #f97316, #f59e0b, #eab308);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease-in-out infinite reverse;
+  opacity: 0.5;
+  filter: blur(1px);
+  z-index: -1;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 新增：悬浮卡片效果 */
+.hover-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.hover-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(251, 146, 60, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.hover-card:hover::before {
+  opacity: 1;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 25px 50px rgba(251, 146, 60, 0.15),
+    0 0 0 1px rgba(251, 146, 60, 0.1);
+}
+
+/* 新增：呼吸灯效果 */
+.breathing-light {
+  animation: breathing 3s ease-in-out infinite;
+}
+
+@keyframes breathing {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* 新增：打字机效果 */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid #f97316;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #f97316; }
+}
+
+/* 新增：3D翻转效果 */
+.flip-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* 新增：霓虹灯效果 */
+.neon-glow {
+  text-shadow: 
+    0 0 5px #f97316,
+    0 0 10px #f97316,
+    0 0 15px #f97316,
+    0 0 20px #f97316;
+  animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: 
+      0 0 5px #f97316,
+      0 0 10px #f97316,
+      0 0 15px #f97316,
+      0 0 20px #f97316;
+  }
+  to {
+    text-shadow: 
+      0 0 2px #f97316,
+      0 0 5px #f97316,
+      0 0 8px #f97316,
+      0 0 12px #f97316;
+  }
+}
+
+/* 新增：下拉框动画效果 */
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.2s ease-out;
+}
+
+.dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dropdown-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 0.15s ease-in;
+}
+
+.dropdown-exit-active {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+}
+
+/* 下拉框样式增强 */
+.token-dropdown {
+  animation: dropdownSlideIn 0.2s ease-out;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.2);
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 下拉框选项悬停效果 */
+.token-dropdown-option {
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.token-dropdown-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(251, 146, 60, 0.1), transparent);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.token-dropdown-option:hover::before {
+  left: 100%;
+}
+
+.token-dropdown-option:hover {
+  background: rgba(251, 146, 60, 0.1);
+  transform: translateX(2px);
+}
