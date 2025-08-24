@@ -1,0 +1,18 @@
+schema:
+  - https://eiyhkckqcxwxxhnklojl.supabase.co/graphql/v1:
+      headers:
+        apikey: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        Authorization: Bearer ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+documents: 'graphql/**/*.graphql'
+generates:
+  lib/generated/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+    config:
+      withHooks: false
+      withComponent: false
+      withHOC: false
+      scalars:
+        BigInt: string
+        BigFloat: string

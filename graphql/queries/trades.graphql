@@ -1,0 +1,44 @@
+query GetTrades($limit: Int!, $offset: Int!) {
+  tradesCollection(
+    orderBy: { created_at: DescNullsLast }
+    first: $limit
+    offset: $offset
+  ) {
+    edges {
+      node {
+        id
+        pool_id
+        token_a
+        token_b
+        amount_a
+        amount_b
+        user_address
+        tx_hash
+        block_number
+        created_at
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
+
+query Get24hVolume($pool_id: String!) {
+  tradesCollection(
+    filter: {
+      pool_id: { eq: $pool_id }
+      created_at: { gte: "2025-01-23T00:00:00Z" }
+    }
+    orderBy: { created_at: DescNullsLast }
+    first: 1000
+  ) {
+    edges {
+      node {
+        amount_a
+        amount_b
+      }
+    }
+  }
+}

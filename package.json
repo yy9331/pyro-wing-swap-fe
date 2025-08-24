@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "dotenv -e .env.development.local -- bunx graphql-codegen"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -32,11 +33,16 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
     "@types/graphql": "^14.5.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "dotenv": "^17.2.1",
+    "dotenv-cli": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "tailwindcss": "3.4.0",
