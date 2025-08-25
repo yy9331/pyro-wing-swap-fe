@@ -99,7 +99,7 @@ export function SwapInterface() {
   }
 
   const getAvailableTokens = (excludeSymbol: string) => {
-    return Object.entries(TEST_TOKENS).filter(([symbol, token]) => symbol !== excludeSymbol)
+    return Object.entries(TEST_TOKENS).filter(([symbol]) => symbol !== excludeSymbol)
   }
 
   return (

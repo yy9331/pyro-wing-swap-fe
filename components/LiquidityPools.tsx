@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { usePoolData, type PoolData } from '@/hooks/usePoolData'
 import { TEST_TOKENS } from '@/lib/constants'
-import { formatNumber } from '@/lib/utils'
+import { formatNumber, formatCurrency, formatPercentage } from '@/lib/utils'
 import { useState, useEffect, Suspense } from 'react'
 import { useLanguage } from '@/hooks/useLanguage'
 
@@ -115,19 +115,19 @@ export function LiquidityPools() {
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">TVL</span>
                       <span className="text-gray-900 dark:text-white font-medium">
-                        ${formatNumber(pool.data.tvl)}
+                        {formatCurrency(pool.data.tvl)}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">APR</span>
                       <span className="text-green-600 dark:text-green-400 font-medium">
-                        {pool.data.apr.toFixed(2)}%
+                        {formatPercentage(pool.data.apr)}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">{t('volume24h')}</span>
                       <span className="text-gray-900 dark:text-white font-medium">
-                        ${formatNumber(pool.data.volume24h)}
+                        {formatCurrency(pool.data.volume24h)}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">

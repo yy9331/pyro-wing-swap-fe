@@ -7,7 +7,7 @@ export async function testConnections() {
   try {
     // 测试 Supabase 连接
     console.log('📊 Testing Supabase connection...')
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('notes')
       .select('title')
     

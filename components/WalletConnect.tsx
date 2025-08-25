@@ -10,7 +10,7 @@ import { useState, useEffect } from "react"
 
 export function WalletConnect({ compact = false }: { compact?: boolean }) {
   const { address, isConnected } = useAccount()
-  const { connect, connectors, isPending } = useConnect()
+  const { connect, isPending } = useConnect()
   const { disconnect } = useDisconnect()
   const { t } = useLanguage()
   const [mounted, setMounted] = useState(false)

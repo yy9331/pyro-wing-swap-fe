@@ -143,14 +143,56 @@ export function usePoolData(tokenA: string, tokenB: string): PoolData {
       // 例如上面的得出的值的计算：37045 + 63075 * 0.587 = 37045 + 37045 = 74090
       // A 代币总量(reserveA) + B 代币总量(reserveB) * (B 代币单价(priceBinA), 即1个B 换几个 A)
       
-      // Simplified calculation: Estimate 24h volume based on TVL (assume daily volume is ~10% of TVL) 简化计算：基于 TVL 估算 24h 交易量（假设日交易量约为 TVL 的 10%）
-      // TODO: 使用0.1 只是估算值, 具体要存入数据库进行计算, 搭建后端平台进行计算
-      const volume24hInA = tvlInA * 0.1
+      // Get real 24h volume from Redis cache or database
+      // 从Redis缓存或数据库获取真实的24小时交易量
+      let volume24hInA = 0
+      
+      try {
+        // Try to get from Redis cache first
+        // 首先尝试从Redis缓存获取
+        const response = await fetch(`/api/pool-volume/${pairAddress}`)
+        if (response.ok) {
+          const data = await response.json()
+          
+          // Convert both token volumes from wei to token units
+          // 将两个代币的交易量从wei转换为代币单位
+          const volumeAInWei = BigInt(data.volume24h_a || 0)
+          const volumeBInWei = BigInt(data.volume24h_b || 0)
+          
+          const volumeA = parseFloat(formatUnits(volumeAInWei, tokenAInfo.decimals))
+          const volumeB = parseFloat(formatUnits(volumeBInWei, tokenBInfo.decimals))
+          
+          // Calculate total volume in tokenA terms (A + B converted at current price)
+          // 计算以tokenA计价的总交易量（A + B按当前价格转换）
+          const totalVolumeInA = volumeA + volumeB * priceBinA
+          volume24hInA = totalVolumeInA
+        } else {
+          // Fallback to estimated calculation if cache miss
+          // 如果缓存未命中，回退到估算计算
+          volume24hInA = tvlInA * 0.1
+        }
+      } catch (error) {
+        console.error('Error fetching 24h volume:', error)
+        // Fallback to estimated calculation on error
+        // 出错时回退到估算计算
+        volume24hInA = tvlInA * 0.1
+      }
 
       // Fee rate (common v2 0.3%) 手续费率（v2 常见 0.3%）
       const feeRate = 0.003
       const fees24hInA = volume24hInA * feeRate
-      const calculatedApr = tvlInA > 0 ? (fees24hInA / tvlInA) * 365 * 100 : 0
+      
+      // Calculate APR with proper bounds to avoid extreme values
+      // 计算APR时设置合理的边界以避免极端值
+      let calculatedApr = 0
+      if (tvlInA > 0 && volume24hInA > 0) {
+        const dailyReturn = fees24hInA / tvlInA
+        calculatedApr = dailyReturn * 365 * 100
+        
+        // Cap APR at reasonable maximum (e.g., 1000%)
+        // 将APR限制在合理最大值内（例如1000%）
+        calculatedApr = Math.min(calculatedApr, 1000)
+      }
 
       setVolume24h(parseFloat(volume24hInA.toFixed(2)))
       setApr(parseFloat(calculatedApr.toFixed(2)))

@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode } from 'react'
+// ReactNode is imported but not used in this file
 
 export function ErrorBanner({ message, onClose }: { message: string; onClose: () => void }) {
   if (!message) return null

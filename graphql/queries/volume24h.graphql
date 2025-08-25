@@ -1,0 +1,81 @@
+# 获取池子的24小时交易量
+query GetPoolVolume24h($poolId: String!) {
+  pools(where: { id: { _eq: $poolId } }) {
+    id
+    token_a
+    token_b
+    token_a_symbol
+    token_b_symbol
+    volume_24h_a
+    volume_24h_b
+    last_updated
+  }
+}
+
+# 获取所有池子的24小时交易量
+query GetAllPoolsVolume24h {
+  pools {
+    id
+    token_a
+    token_b
+    token_a_symbol
+    token_b_symbol
+    volume_24h_a
+    volume_24h_b
+    last_updated
+  }
+}
+
+# 获取特定时间范围内的交易记录
+query GetTradesByTimeRange($poolId: String!, $startTime: timestamptz!, $endTime: timestamptz!) {
+  trades(
+    where: {
+      pool_id: { _eq: $poolId }
+      timestamp: { _gte: $startTime, _lte: $endTime }
+    }
+    order_by: { timestamp: desc }
+  ) {
+    id
+    amount_a
+    amount_b
+    user_address
+    tx_hash
+    timestamp
+  }
+}
+
+# 获取用户交易历史
+query GetUserTrades($userAddress: String!) {
+  user_trades(
+    where: { user_address: { _eq: $userAddress } }
+    order_by: { timestamp: desc }
+  ) {
+    id
+    pool_id
+    trade_type
+    amount_a
+    amount_b
+    timestamp
+    trades {
+      tx_hash
+    }
+  }
+}
+
+# 获取池子统计信息
+query GetPoolStats($poolId: String!) {
+  pools(where: { id: { _eq: $poolId } }) {
+    id
+    total_value_locked_a
+    total_value_locked_b
+    volume_24h_a
+    volume_24h_b
+    last_updated
+  }
+  
+  trades_aggregate(where: { pool_id: { _eq: $poolId } }) {
+    aggregate {
+      count
+    }
+  }
+}
