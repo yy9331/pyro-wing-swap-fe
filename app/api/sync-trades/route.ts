@@ -148,7 +148,12 @@ async function cachePoolData(poolId: string, volume24h_a: number, volume24h_b: n
     timestamp: Date.now()
   }
 
-  await redis.set(cacheKey, JSON.stringify(cacheData), { ex: 3600 }) // 1 hour expiry
+  try {
+    await redis.set(cacheKey, JSON.stringify(cacheData), { ex: 3600 }) // 1 hour expiry
+    console.log(`Cached data for pool ${poolId}:`, JSON.stringify(cacheData))
+  } catch (error) {
+    console.error(`Error caching data for pool ${poolId}:`, error)
+  }
 }
 
 export async function POST() {

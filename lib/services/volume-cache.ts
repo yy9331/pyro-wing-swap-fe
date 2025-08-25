@@ -52,7 +52,17 @@ export async function getCachedVolumeData(poolId: string): Promise<VolumeData | 
     const cachedData = await redis.get(cacheKey)
     if (!cachedData) return null
     
-    return JSON.parse(cachedData as string) as VolumeData
+    // Handle both string and object formats
+    // 处理字符串和对象两种格式
+    if (typeof cachedData === 'string') {
+      return JSON.parse(cachedData) as VolumeData
+    } else if (typeof cachedData === 'object' && cachedData !== null) {
+      // If it's already an object, return it directly
+      // 如果已经是对象，直接返回
+      return cachedData as VolumeData
+    }
+    
+    return null
   } catch (error) {
     console.error('Error getting cached volume data:', error)
     return null
