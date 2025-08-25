@@ -13,6 +13,7 @@ export interface PoolData {
   tvl: number
   volume24h: number
   apr: number
+  dailyFees: number // 日手续费收入
   lpTokens: number
   exists: boolean
   isLoading: boolean // New loading state 新增加载状态
@@ -21,6 +22,7 @@ export interface PoolData {
 export function usePoolData(tokenA: string, tokenB: string): PoolData {
   const [volume24h, setVolume24h] = useState(0)
   const [apr, setApr] = useState(0)
+  const [dailyFees, setDailyFees] = useState(0) // 日手续费收入
   const [isLoading, setIsLoading] = useState(true) // New loading state 新增加载状态
 
   // Get pair address 获取 pair 地址
@@ -185,6 +187,8 @@ export function usePoolData(tokenA: string, tokenB: string): PoolData {
       // Calculate APR with proper bounds to avoid extreme values
       // 计算APR时设置合理的边界以避免极端值
       let calculatedApr = 0
+      let calculatedDailyFees = fees24hInA
+      
       if (tvlInA > 0 && volume24hInA > 0) {
         const dailyReturn = fees24hInA / tvlInA
         calculatedApr = dailyReturn * 365 * 100
@@ -196,6 +200,7 @@ export function usePoolData(tokenA: string, tokenB: string): PoolData {
 
       setVolume24h(parseFloat(volume24hInA.toFixed(2)))
       setApr(parseFloat(calculatedApr.toFixed(2)))
+      setDailyFees(parseFloat(calculatedDailyFees.toFixed(2)))
     }
 
     calculateVolumeAndAPR()
@@ -236,6 +241,7 @@ export function usePoolData(tokenA: string, tokenB: string): PoolData {
         tvl: parseFloat(tvlInA.toFixed(2)),
         volume24h,
         apr,
+        dailyFees,
         lpTokens: parseFloat(totalSupplyFormatted.toFixed(2)),
         exists: true,
         isLoading: false, // Data loading completed 数据加载完成
@@ -255,6 +261,7 @@ export function usePoolData(tokenA: string, tokenB: string): PoolData {
     tvl: 0,
     volume24h: 0,
     apr: 0,
+    dailyFees: 0,
     lpTokens: 0,
     exists: Boolean(poolExists && !isLoading), /* Only return true when loading is complete and pool exists 只有在加载完成且池子存在时才返回 true */
     isLoading: Boolean(isLoading), /* Return loading state 返回加载状态 */

@@ -77,10 +77,8 @@ export function formatPercentage(value: number, decimals: number = 2): string {
   
   if (absValue >= 1000) {
     return `${(value / 1000).toFixed(decimals)}K%`
-  } else if (absValue >= 1) {
-    return `${value.toFixed(decimals)}%`
   } else {
-    return `${(value * 100).toFixed(decimals)}%`
+    return `${value.toFixed(decimals)}%`
   }
 }
 

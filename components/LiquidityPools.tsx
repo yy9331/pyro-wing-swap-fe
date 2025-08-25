@@ -125,6 +125,12 @@ export function LiquidityPools() {
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-400">{t('dailyFees')}</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-medium">
+                        {formatCurrency(pool.data.dailyFees)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
                       <span className="text-gray-600 dark:text-gray-400">{t('volume24h')}</span>
                       <span className="text-gray-900 dark:text-white font-medium">
                         {formatCurrency(pool.data.volume24h)}
@@ -174,6 +180,7 @@ export function LiquidityPools() {
           <div>• <span className="text-gray-600 dark:text-gray-400">{t('poolNotCreated')}</span> - {t('needToAddLiquidityFirst')}</div>
           <div>• TVL ({t('totalValueLocked')}) - {t('totalValueOfTokensInPool')}</div>
           <div>• APR ({t('annualPercentageRate')}) - {t('annualizedReturnBasedOnFees')}</div>
+          <div>• {t('dailyFees')} - {t('dailyFeesDescription')}</div>
           <div>• {t('lpTokens')} - {t('totalAmountOfLPTokens')}</div>
         </div>
       </div>

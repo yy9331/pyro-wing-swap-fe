@@ -85,6 +85,8 @@ const translations = {
     'totalValueOfTokensInPool': '池子中代币的总价值',
     'annualPercentageRate': '年化收益率',
     'annualizedReturnBasedOnFees': '基于交易费用的年化收益',
+    'dailyFees': '日手续费',
+    'dailyFeesDescription': '每日交易手续费收入 (0.3%费率)',
     'totalAmountOfLPTokens': '流动性提供者代币总量',
     'fetchingDataFromBlockchain': '正在从区块链获取数据',
   },
@@ -159,6 +161,8 @@ const translations = {
     'totalValueOfTokensInPool': 'Total value of tokens in the pool',
     'annualPercentageRate': 'Annual Percentage Rate',
     'annualizedReturnBasedOnFees': 'Annualized return based on fees',
+    'dailyFees': 'Daily Fees',
+    'dailyFeesDescription': 'Daily trading fee income (0.3% fee rate)',
     'totalAmountOfLPTokens': 'Total amount of LP tokens',
     'fetchingDataFromBlockchain': 'Fetching data from blockchain',
   }
